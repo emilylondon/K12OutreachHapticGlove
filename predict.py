@@ -2,7 +2,7 @@ import pickle
 from flask import Flask,request
 import json
 
-clf = pickle.load(open('model.pickle','rb'))
+clf = pickle.load(open('model.pkl','rb'))
 
 
 app = Flask(__name__)
