@@ -31,6 +31,7 @@ uint16_t lasttouched = 0;
 uint16_t currtouched = 0;
 int led_pin = 6;
 int dataValue = 0;
+SoftwareSerial mySerial(7, 6); // RX, TX for ESP-01
 
 void setup() {
   Serial.begin(9600);
