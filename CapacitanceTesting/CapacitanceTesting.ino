@@ -17,6 +17,9 @@ BSD license, all text above must be included in any redistribution
 
 #include <Wire.h>
 #include "Adafruit_MPR121.h"
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+#include <WiFiClient.h>
 
 #ifndef _BV
 #define _BV(bit) (1 << (bit)) 
@@ -25,17 +28,32 @@ BSD license, all text above must be included in any redistribution
 // You can have up to 4 on one i2c bus but one is enough for testing!
 Adafruit_MPR121 cap = Adafruit_MPR121();
 
+const char* ssid = "USC Womens Rowing Team";
+const char* password = "hdik83ksl3469";
+String serverName = "https://classify-object.bluesea-6dc94308.westus.azurecontainerapps.io/classify?s1=255&s2=223&s3=233&s4=234&s5=235&s6=223";
+
 // Keeps track of the last pins touched
 // so we know when buttons are 'released'
 uint16_t lasttouched = 0;
 uint16_t currtouched = 0;
 int led_pin = 6;
 int dataValue = 0;
-SoftwareSerial mySerial(7, 6); // RX, TX for ESP-01
+SoftwareSerial espSerial(7, 6); // RX, TX for ESP-01
 
 void setup() {
   Serial.begin(9600);
+  Serial.begin(115200); 
 
+  WiFi.begin(ssid, password);
+  Serial.println("Connecting");
+  while(WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.print("Connected to WiFi network with IP Address: ");
+  Serial.println(WiFi.localIP());g ESP-01!");
+  
   while (!Serial) { // needed to keep leonardo/micro from starting too fast!
     delay(10);
   }
